@@ -38,5 +38,5 @@ install(FILES data/com.github.DanielOgorchock.joycond.metainfo.xml
 # Install runit service
 install(DIRECTORY runit/service/joycond
         DESTINATION /etc/runit/runsvdir/default
-        PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+        FILE_PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
         )

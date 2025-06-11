@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Load the ledtrig-timer module for player LED blinking
+modprobe ledtrig-timer
+
+# Run joycond as root
+exec /usr/bin/joycond 

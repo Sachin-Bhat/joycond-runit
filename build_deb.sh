@@ -33,8 +33,16 @@ EOF
 
 cat <<EOF > postinst
 #!/bin/bash
-echo "Enabling and starting joycond service..."
-systemctl enable --now joycond
+# Load the ledtrig-timer module for player LED blinking
+modprobe ledtrig-timer
+
+# Ensure runit service directory exists
+mkdir -p /etc/runit/runsvdir/default
+
+# Link the joycond service if it doesn't exist
+if [ ! -L /etc/runit/runsvdir/default/joycond ]; then
+    ln -s /usr/lib/joycond/runit/service/joycond /etc/runit/runsvdir/default/
+fi
 EOF
 chmod 755 postinst
 

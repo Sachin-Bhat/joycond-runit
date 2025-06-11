@@ -36,12 +36,13 @@ cat <<EOF > postinst
 # Load the ledtrig-timer module for player LED blinking
 modprobe ledtrig-timer
 
-# Ensure runit service directory exists
-mkdir -p /etc/runit/runsvdir/default
-
-# Link the joycond service if it doesn't exist
-if [ ! -L /etc/runit/runsvdir/default/joycond ]; then
-    ln -s /usr/lib/joycond/runit/service/joycond /etc/runit/runsvdir/default/
+# Create runit service symlinks
+if [ -d "/etc/runit/runsvdir/default" ]; then
+    # For Debian/Ubuntu
+    ln -sf /usr/lib/joycond/runit/service/joycond /etc/runit/runsvdir/default/
+elif [ -d "/etc/runit/runsvdir/current" ]; then
+    # For Artix Linux
+    ln -sf /usr/lib/joycond/runit/service/joycond /etc/runit/runsvdir/current/
 fi
 EOF
 chmod 755 postinst
